@@ -82,3 +82,13 @@ test("handles decimal numbers correctly", () => {
   const result = screen.getByTestId("result");
   expect(result).toHaveTextContent("7");
 });
+test("handles negative numbers", () => {
+  render(<Calculator />);
+  fireEvent.click(screen.getByTestId("button-5"));
+  fireEvent.click(screen.getByTestId("button-minus"));
+  fireEvent.click(screen.getByTestId("button-8"));
+  fireEvent.click(screen.getByTestId("button-equal"));
+
+  const result = screen.getByTestId("result");
+  expect(result).toHaveTextContent("-3");
+});
