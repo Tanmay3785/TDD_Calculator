@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "../Calculator.css";
 const Calculator: React.FC = () => {
   const [input, setInput] = useState<string>("0");
   const [prevInput, setPrevInput] = useState<string>("");
@@ -25,26 +25,13 @@ const Calculator: React.FC = () => {
           setInput((parseFloat(prevInput) / parseFloat(input)).toString());
         }
       }
-    } else if (
-      value === "+" ||
-      value === "-" ||
-      value === "*" ||
-      value === "/"
-    ) {
+    } else if (["+", "-", "*", "/"].includes(value)) {
       setOperator(value);
       setPrevInput(input);
       setInput("0");
     } else if (value === ".") {
-      // Only allow one decimal point per number
       if (!input.includes(".")) {
         setInput(input + ".");
-      }
-    } else if (value === "-") {
-      // Handle negative number entry
-      if (input === "0" || input === "") {
-        setInput("-"); // Start a negative number
-      } else {
-        setInput("-" + input); // Prefix the number with a negative sign
       }
     } else {
       if (input === "0") {
@@ -56,62 +43,137 @@ const Calculator: React.FC = () => {
   };
 
   return (
-    <div>
-      <div data-testid="result" className="result">
-        {input}
-      </div>
-      <div>
-        <button onClick={() => handleClick("1")} data-testid="button-1">
-          1
-        </button>
-        <button onClick={() => handleClick("2")} data-testid="button-2">
-          2
-        </button>
-        <button onClick={() => handleClick("3")} data-testid="button-3">
-          3
-        </button>
-        <button onClick={() => handleClick("4")} data-testid="button-4">
-          4
-        </button>
-        <button onClick={() => handleClick("5")} data-testid="button-5">
-          5
-        </button>
-        <button onClick={() => handleClick("6")} data-testid="button-6">
-          6
-        </button>
-        <button onClick={() => handleClick("7")} data-testid="button-7">
-          7
-        </button>
-        <button onClick={() => handleClick("8")} data-testid="button-8">
-          8
-        </button>
-        <button onClick={() => handleClick("9")} data-testid="button-9">
-          9
-        </button>
-        <button onClick={() => handleClick("0")} data-testid="button-0">
-          0
-        </button>
-        <button onClick={() => handleClick("+")} data-testid="button-plus">
-          +
-        </button>
-        <button onClick={() => handleClick("-")} data-testid="button-minus">
-          -
-        </button>
-        <button onClick={() => handleClick("*")} data-testid="button-multiply">
-          *
-        </button>
-        <button onClick={() => handleClick("/")} data-testid="button-divide">
-          /
-        </button>
-        <button onClick={() => handleClick("=")} data-testid="button-equal">
-          =
-        </button>
-        <button onClick={() => handleClick("C")} data-testid="button-clear">
-          C
-        </button>
-        <button onClick={() => handleClick(".")} data-testid="button-decimal">
-          .
-        </button>
+    <div className="calculator-container">
+      <div className="calculator">
+        <div data-testid="result" className="display">
+          {input}
+        </div>
+
+        <div className="keypad">
+          <button
+            onClick={() => handleClick("C")}
+            data-testid="button-clear"
+            className="button clear"
+          >
+            C
+          </button>
+          <button
+            onClick={() => handleClick("/")}
+            data-testid="button-divide"
+            className="button operator"
+          >
+            ÷
+          </button>
+          <button
+            onClick={() => handleClick("*")}
+            data-testid="button-multiply"
+            className="button operator"
+          >
+            ×
+          </button>
+          <button
+            onClick={() => handleClick("-")}
+            data-testid="button-minus"
+            className="button operator"
+          >
+            −
+          </button>
+
+          <button
+            onClick={() => handleClick("7")}
+            data-testid="button-7"
+            className="button number"
+          >
+            7
+          </button>
+          <button
+            onClick={() => handleClick("8")}
+            data-testid="button-8"
+            className="button number"
+          >
+            8
+          </button>
+          <button
+            onClick={() => handleClick("9")}
+            data-testid="button-9"
+            className="button number"
+          >
+            9
+          </button>
+          <button
+            onClick={() => handleClick("+")}
+            data-testid="button-plus"
+            className="button operator"
+          >
+            +
+          </button>
+
+          <button
+            onClick={() => handleClick("4")}
+            data-testid="button-4"
+            className="button number"
+          >
+            4
+          </button>
+          <button
+            onClick={() => handleClick("5")}
+            data-testid="button-5"
+            className="button number"
+          >
+            5
+          </button>
+          <button
+            onClick={() => handleClick("6")}
+            data-testid="button-6"
+            className="button number"
+          >
+            6
+          </button>
+          <button
+            onClick={() => handleClick("=")}
+            data-testid="button-equal"
+            className="button equal"
+          >
+            =
+          </button>
+
+          <button
+            onClick={() => handleClick("1")}
+            data-testid="button-1"
+            className="button number"
+          >
+            1
+          </button>
+          <button
+            onClick={() => handleClick("2")}
+            data-testid="button-2"
+            className="button number"
+          >
+            2
+          </button>
+          <button
+            onClick={() => handleClick("3")}
+            data-testid="button-3"
+            className="button number"
+          >
+            3
+          </button>
+
+          <button
+            onClick={() => handleClick("0")}
+            data-testid="button-0"
+            className="button number zero"
+          >
+            0
+          </button>
+          <button
+            onClick={() => handleClick(".")}
+            data-testid="button-decimal"
+            className="button number"
+          >
+            .
+          </button>
+        </div>
       </div>
     </div>
   );
