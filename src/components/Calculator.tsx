@@ -6,6 +6,13 @@ const Calculator: React.FC = () => {
   const [operator, setOperator] = useState<string>("");
 
   const handleClick = (value: string) => {
+    if (value === "C") {
+      setInput("0");
+      setPrevInput("");
+      setOperator("");
+      return;
+    }
+
     if (value === "=") {
       if (operator && prevInput) {
         if (operator === "+") {
@@ -14,6 +21,8 @@ const Calculator: React.FC = () => {
           setInput((parseFloat(prevInput) - parseFloat(input)).toString());
         } else if (operator === "*") {
           setInput((parseFloat(prevInput) * parseFloat(input)).toString());
+        } else if (operator === "/") {
+          setInput((parseFloat(prevInput) / parseFloat(input)).toString());
         }
       }
     } else if (
@@ -25,6 +34,18 @@ const Calculator: React.FC = () => {
       setOperator(value);
       setPrevInput(input);
       setInput("0");
+    } else if (value === ".") {
+      // Only allow one decimal point per number
+      if (!input.includes(".")) {
+        setInput(input + ".");
+      }
+    } else if (value === "-") {
+      // Handle negative number entry
+      if (input === "0" || input === "") {
+        setInput("-"); // Start a negative number
+      } else {
+        setInput("-" + input); // Prefix the number with a negative sign
+      }
     } else {
       if (input === "0") {
         setInput(value);
@@ -79,8 +100,17 @@ const Calculator: React.FC = () => {
         <button onClick={() => handleClick("*")} data-testid="button-multiply">
           *
         </button>
+        <button onClick={() => handleClick("/")} data-testid="button-divide">
+          /
+        </button>
         <button onClick={() => handleClick("=")} data-testid="button-equal">
           =
+        </button>
+        <button onClick={() => handleClick("C")} data-testid="button-clear">
+          C
+        </button>
+        <button onClick={() => handleClick(".")} data-testid="button-decimal">
+          .
         </button>
       </div>
     </div>
