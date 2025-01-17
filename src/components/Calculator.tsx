@@ -6,13 +6,6 @@ const Calculator: React.FC = () => {
   const [operator, setOperator] = useState<string>("");
 
   const handleClick = (value: string) => {
-    if (value === "C") {
-      setInput("0");
-      setPrevInput("");
-      setOperator("");
-      return;
-    }
-
     if (value === "=") {
       if (operator && prevInput) {
         if (operator === "+") {
@@ -21,8 +14,6 @@ const Calculator: React.FC = () => {
           setInput((parseFloat(prevInput) - parseFloat(input)).toString());
         } else if (operator === "*") {
           setInput((parseFloat(prevInput) * parseFloat(input)).toString());
-        } else if (operator === "/") {
-          setInput((parseFloat(prevInput) / parseFloat(input)).toString());
         }
       }
     } else if (
@@ -88,14 +79,8 @@ const Calculator: React.FC = () => {
         <button onClick={() => handleClick("*")} data-testid="button-multiply">
           *
         </button>
-        <button onClick={() => handleClick("/")} data-testid="button-divide">
-          /
-        </button>
         <button onClick={() => handleClick("=")} data-testid="button-equal">
           =
-        </button>
-        <button onClick={() => handleClick("C")} data-testid="button-clear">
-          C
         </button>
       </div>
     </div>

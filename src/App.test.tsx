@@ -71,3 +71,14 @@ test("clears the calculator display when C button is clicked", () => {
   fireEvent.click(screen.getByTestId("button-1"));
   expect(result).toHaveTextContent("1");
 });
+
+test("handles decimal numbers correctly", () => {
+  render(<Calculator />);
+  fireEvent.click(screen.getByTestId("button-5"));
+  fireEvent.click(screen.getByTestId("button-plus"));
+  fireEvent.click(screen.getByTestId("button-2"));
+  fireEvent.click(screen.getByTestId("button-equal"));
+
+  const result = screen.getByTestId("result");
+  expect(result).toHaveTextContent("7");
+});
